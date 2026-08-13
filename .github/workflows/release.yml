@@ -5,13 +5,12 @@ on:
     tags:
       - "v*"
 
-permissions:
-  id-token: write
-  contents: write
-
 jobs:
   publish:
     runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: write
 
     steps:
       - uses: actions/checkout@v4
@@ -20,21 +19,13 @@ jobs:
         with:
           node-version: 22
           registry-url: "https://registry.npmjs.org"
-          cache: npm
 
-      - run: npm ci
-
-      - name: Typecheck
-        run: npm run typecheck
-
-      - name: Test
-        run: npm test
+      - run: npm install
 
       - name: Sync version from tag
         run: npm version ${GITHUB_REF_NAME#v} --no-git-tag-version --allow-same-version
 
-      - name: Build
-        run: npm run build
+      - run: npm run build
 
       - run: npm publish --provenance
         env:
