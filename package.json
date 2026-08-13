@@ -2,7 +2,7 @@
 	"name": "@panmdaa/server",
 	"private": false,
 	"version": "0.1.0",
-	"description": "Zero-dependency TypeScript library — replace with your project description",
+	"description": "Zero-dependency TypeScript HTTP and WebSocket server with a compiled-radix router, built on Node's native http, https and http2 transport",
 	"license": "MIT",
 	"author": {
 		"name": "Panmdaa",
@@ -11,10 +11,13 @@
 	},
 	"keywords": [
 		"panmdaa",
+		"http",
+		"http2",
+		"websocket",
+		"server",
+		"router",
+		"radix-tree",
 		"typescript",
-		"library",
-		"esm",
-		"tree-shakable",
 		"zero-dependencies"
 	],
 	"type": "module",
