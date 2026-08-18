@@ -6,19 +6,19 @@ How to structure a real app with `@panmdaa/server` the way it was designed to be
 
 ```ts
 // routes/users.ts
-import { Router } from "@panmdaa/server/router";
+import { Router } from "@panmdaa/server";
 export const users = new Router();
 users.get("/", listUsers);
 users.get("/:id", getUser);
 users.post("/", createUser);
 
 // routes/chat.ts
-import { Router } from "@panmdaa/server/router";
+import { Router } from "@panmdaa/server";
 export const chat = new Router();
 chat.ws("/live", chatHandler);
 
 // app.ts
-import { Server } from "@panmdaa/server/http";
+import { Server } from "@panmdaa/server";
 import { users } from "./routes/users";
 import { chat } from "./routes/chat";
 
@@ -66,7 +66,7 @@ server.get("/me", ({ state, response }) => {
 ## 5. Throw typed errors, don't hand-build 500s
 
 ```ts
-import { NotFound, BadRequest } from "@panmdaa/server/error";
+import { NotFound, BadRequest } from "@panmdaa/server";
 
 server.get("/user/:id", async ({ params, response }) => {
   const user = await db.findUser(params.id);
@@ -100,7 +100,7 @@ Don't parse the body in middleware for routes that don't need it — parsing is 
 ## 7. WebSocket: track, broadcast, close
 
 ```ts
-import { createWebSocketHeartbeat } from "@panmdaa/server/ws";
+import { createWebSocketHeartbeat } from "@panmdaa/server";
 
 const clients = new Set();
 const heartbeat = createWebSocketHeartbeat();

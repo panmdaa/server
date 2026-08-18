@@ -32,10 +32,9 @@ npm install @panmdaa/server
 ## Quick look
 
 ```ts
-import { Server } from "@panmdaa/server/http";
-import { Router } from "@panmdaa/server/router";
-import { cors, securityHeaders } from "@panmdaa/server/middleware";
-import { NotFound } from "@panmdaa/server/error";
+import {
+  Server, Router, cors, securityHeaders, NotFound,
+} from "@panmdaa/server";
 
 // Compose routers, mount them on a server
 const users = new Router();
@@ -68,14 +67,14 @@ server.ws("/live", ({ socket }) => {
 server.listen(3000);
 ```
 
-> **Modular imports**: each domain has its own subpath — `@panmdaa/server/http`, `@panmdaa/server/router`, `@panmdaa/server/middleware`, `@panmdaa/server/error`, `@panmdaa/server/ws` — and the root `@panmdaa/server` re-exports everything. See [Development](docs/development/tooling.md).
+> **Single entry point**: everything — `Server`, `Router`, middleware, errors, WebSocket helpers — is exported from `@panmdaa/server`. See [Development](docs/development/tooling.md).
 
 ## Routing
 
 Verbs, params, wildcards and composition — all type-checked at compile time:
 
 ```ts
-import { Server } from "@panmdaa/server/http";
+import { Server } from "@panmdaa/server";
 
 const server = new Server();
 
@@ -117,8 +116,7 @@ Optional segments are expanded into concrete routes at registration; matching ne
 Middleware is compiled into a single function per route — conditional `await`, shared `next`, short-circuit. It's baked into each route **at registration time**:
 
 ```ts
-import { Server } from "@panmdaa/server/http";
-import { cors, securityHeaders } from "@panmdaa/server/middleware";
+import { Server, cors, securityHeaders } from "@panmdaa/server";
 
 const server = new Server();
 
@@ -146,8 +144,7 @@ Two contracts make the chain work (see [handler compilation](docs/http/handler-c
 Path-only matching in a separate tree — `server.ws("/*")` never shadows HTTP routes. Zero-alloc parsing, zero-copy writes, `cork`'d coalescing:
 
 ```ts
-import { Server } from "@panmdaa/server/http";
-import { createWebSocketHeartbeat, CloseCode } from "@panmdaa/server/ws";
+import { Server, createWebSocketHeartbeat, CloseCode } from "@panmdaa/server";
 
 const heartbeat = createWebSocketHeartbeat({ intervalMs: 30_000, timeoutMs: 10_000 });
 
@@ -178,7 +175,7 @@ One code path for HTTP/1, HTTP/2 and WebSocket-over-HTTP/2:
 
 ```ts
 import { readFileSync } from "node:fs";
-import { Server } from "@panmdaa/server/http";
+import { Server } from "@panmdaa/server";
 
 const server = new Server({
   http2: true,                                    // h2c, or with tls → ALPN
@@ -198,7 +195,7 @@ Throw typed errors, get mapped responses — unknown errors become 500 automatic
 import {
   HttpError, NotFound, BadRequest,
   MethodNotAllowed, PayloadTooLarge, UnsupportedMediaType,
-} from "@panmdaa/server/error";
+} from "@panmdaa/server";
 
 server.get("/user/:id", ({ params }) => {
   throw new NotFound();
@@ -230,7 +227,7 @@ server.post("/api/echo", async ({ body, response }) => {
 
 ## API
 
-> **Modular imports**: `Server`, contexts and handler compilation live in `@panmdaa/server/http`; `Router`/`RadixTree` in `@panmdaa/server/router`; the WebSocket stack in `@panmdaa/server/ws`; errors in `@panmdaa/server/error`; middleware in `@panmdaa/server/middleware`. The root `@panmdaa/server` re-exports everything.
+> **Single entry point**: everything — `Server`, contexts, handler compilation, `Router`/`RadixTree`, the WebSocket stack, errors, middleware — is exported from `@panmdaa/server`.
 
 | Member | Description |
 |--------|-------------|

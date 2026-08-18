@@ -25,24 +25,19 @@ Run it via `npm run build` (or `node scripts/run-all.mjs`).
 
 ## Build
 
-- `tsup.config.ts`: entry `src/**/*.ts`, `esnext`, **ESM only**, `minify: true`, `bundle: true`, `treeshake: true`, `clean: true`. tsup preserves the `src/` directory structure in `dist/`, which is what the subpath exports rely on.
+- `tsup.config.ts`: entry `src/**/*.ts`, `esnext`, **ESM only**, `minify: true`, `bundle: true`, `treeshake: true`, `clean: true`. tsup preserves the `src/` directory structure in `dist/`.
 - `tsconfig.build.json`: `emitDeclarationOnly`, `outDir: dist`, `rootDir: src` — tsup emits JS, tsc emits `.d.ts` with the same structure.
 
-## Public entry points (modular imports)
+## Public entry point
 
-`package.json` `exports` defines the public surface. Each domain is a subpath; the root re-exports everything:
+`package.json` `exports` defines the public surface — a **single entry point** that re-exports every domain:
 
-| Subpath | `dist/` target | Surface |
-|---------|----------------|---------|
+| Export | `dist/` target | Surface |
+|--------|----------------|---------|
 | `.` | `index.js` / `index.d.ts` | root barrel (`export *` from all sub-barrels) |
-| `./error` | `error/index.js` | errors |
-| `./http` | `http/index.js` | contexts, handler, server |
-| `./middleware` | `middleware/index.js` | cors, securityHeaders |
-| `./router` | `router/index.js` | router, radix-tree |
-| `./ws` | `ws/index.js` | WebSocket stack |
 | `./package.json` | `package.json` | tooling convenience |
 
-Adding a new public module means: (1) create its `src/<name>/index.ts` barrel, (2) add a matching `exports` entry in `package.json`, (3) `export *` it from `src/index.ts` if it should also be in the root barrel.
+Adding a new public module means: (1) create its `src/<name>/index.ts` barrel, (2) `export *` it from `src/index.ts`.
 
 > `src/index.ts` is a clean barrel — it must **never** contain executable code (no `new Server()`, no `listen()`), or importing the package would boot a server.
 

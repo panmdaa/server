@@ -4,7 +4,7 @@
 
 ```ts
 import { readFileSync } from "node:fs";
-import { Server } from "@panmdaa/server/http";
+import { Server } from "@panmdaa/server";
 
 const server = new Server({
   tls: {

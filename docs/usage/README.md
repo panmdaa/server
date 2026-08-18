@@ -19,7 +19,7 @@ For the internals (why things work this way, what runs when), see the [architect
 ## Key concepts in one minute
 
 ```ts
-import { Server } from "@panmdaa/server/http";
+import { Server } from "@panmdaa/server";
 
 const server = new Server();
 
@@ -37,4 +37,4 @@ server.listen(3000);
 - `ctx.body` (JSON, form, raw, stream) is available only on body-capable routes (`POST/PUT/PATCH/DELETE/QUERY`).
 - WebSockets live in their own tree: `server.ws("/path", handler)`.
 
-**Imports are modular**: each domain has its own subpath — `@panmdaa/server/http` (Server, contexts), `@panmdaa/server/router`, `@panmdaa/server/ws`, `@panmdaa/server/middleware`, `@panmdaa/server/error` — and the root `@panmdaa/server` re-exports everything. See [Development](../development/tooling.md).
+**One entry point**: everything — `Server`, `Router`, middleware, WebSockets, errors — is exported from `@panmdaa/server`. See [Development](../development/tooling.md).

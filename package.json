@@ -57,28 +57,7 @@
 		".": {
 			"types": "./dist/index.d.ts",
 			"default": "./dist/index.js"
-		},
-		"./error": {
-			"types": "./dist/error/index.d.ts",
-			"default": "./dist/error/index.js"
-		},
-		"./http": {
-			"types": "./dist/http/index.d.ts",
-			"default": "./dist/http/index.js"
-		},
-		"./middleware": {
-			"types": "./dist/middleware/index.d.ts",
-			"default": "./dist/middleware/index.js"
-		},
-		"./router": {
-			"types": "./dist/router/index.d.ts",
-			"default": "./dist/router/index.js"
-		},
-		"./ws": {
-			"types": "./dist/ws/index.d.ts",
-			"default": "./dist/ws/index.js"
-		},
-		"./package.json": "./package.json"
+		}
 	},
 	"types": "./dist/index.d.ts",
 	"main": "./dist/index.js",

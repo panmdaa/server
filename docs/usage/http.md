@@ -165,7 +165,7 @@ server.get("/old", ({ response }) => {
 ## Errors
 
 ```ts
-import { NotFound, BadRequest } from "@panmdaa/server/error";
+import { NotFound, BadRequest } from "@panmdaa/server";
 
 server.get("/nope", () => {
   throw new NotFound();

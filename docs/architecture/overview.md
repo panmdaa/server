@@ -79,21 +79,14 @@ Both engines follow the same allocation discipline:
 - No logging, no cluster, no static file server (files are streamed with `pipeline`, but there is no middleware doing directory listing).
 - No room/channel management for WebSockets — that is app-level.
 
-## Public entry points
+## Public entry point
 
-The package exposes **modular subpath imports** (`package.json` `exports`): each domain is importable on its own, and the root barrel re-exports everything.
-
-| Import | Surface |
-|--------|---------|
-| `@panmdaa/server` | everything (root barrel, `src/index.ts`) |
-| `@panmdaa/server/error` | `HttpError`, `isHttpError`, status classes |
-| `@panmdaa/server/router` | `Router`, `RadixTree`, `Path` types |
-| `@panmdaa/server/http` | `Server`, contexts, `compileHandler`, `ResponseContext` |
-| `@panmdaa/server/ws` | `WebSocketConnection`, handshake, frame, compression, heartbeat |
-| `@panmdaa/server/middleware` | `cors`, `securityHeaders` |
+The package exposes a **single entry point** (`package.json` `exports`): `@panmdaa/server`, a root barrel (`src/index.ts`) re-exporting every domain.
 
 ```ts
-import { Server } from "@panmdaa/server/http";
-import { cors } from "@panmdaa/server/middleware";
-import { NotFound } from "@panmdaa/server/error";
+import {
+  Server, Router, cors, NotFound,
+} from "@panmdaa/server";
 ```
+
+The `error`, `http`, `middleware`, `router` and `ws` barrels are internal and reachable only through the root export.

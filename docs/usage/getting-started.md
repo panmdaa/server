@@ -13,7 +13,7 @@ Requires Node.js >= 18 (`package.json` `engines`). Pure ESM — use `import`, no
 ## Your first server
 
 ```ts
-import { Server } from "@panmdaa/server/http";
+import { Server } from "@panmdaa/server";
 
 const server = new Server();
 
@@ -76,7 +76,7 @@ WebSocket routes match by **path only** and live in a separate tree — `/*` won
 Throw `HttpError` subclasses (or build your own) and the server maps them:
 
 ```ts
-import { NotFound } from "@panmdaa/server/error";
+import { NotFound } from "@panmdaa/server";
 
 server.get("/teapot", () => {
   throw new NotFound();

@@ -86,7 +86,7 @@ const server = new Server({
 Dead connections (dropped network, powered-off clients) never send a close frame. Track sockets to close them after a timeout:
 
 ```ts
-import { createWebSocketHeartbeat } from "@panmdaa/server/ws";
+import { createWebSocketHeartbeat } from "@panmdaa/server";
 
 const heartbeat = createWebSocketHeartbeat({ intervalMs: 30_000, timeoutMs: 10_000 });
 

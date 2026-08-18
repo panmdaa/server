@@ -12,7 +12,7 @@ Thank you for considering contributing to `@panmdaa/server`.
 - `docs/` — architecture, usage, and subsystem documentation.
 - `.github/workflows/` — CI and release automation.
 
-Public entry points use subpath exports — `@panmdaa/server/http`, `@panmdaa/server/router`, `@panmdaa/server/ws`, `@panmdaa/server/middleware`, `@panmdaa/server/error` — with the root `@panmdaa/server` re-exporting everything.
+The package exposes a single entry point — `@panmdaa/server` — which re-exports everything (`error`, `http`, `middleware`, `router`, `ws`).
 
 ## Ways To Contribute
 
@@ -30,7 +30,7 @@ For larger changes, open an issue first so we can align on scope, API design, an
 
 Changes that should usually be discussed first:
 
-- new public exports or subpath imports
+- new public exports
 - changes to core internal algorithms or data structures
 - changes to public function signatures or return types
 - adding runtime dependencies
